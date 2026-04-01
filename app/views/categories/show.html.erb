@@ -1,2 +1,22 @@
-<h1>Categories#show</h1>
-<p>Find me in app/views/categories/show.html.erb</p>
+<h1><%= @category.name %></h1>
+
+<% if @products.any? %>
+  <% @products.each do |product| %>
+    <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
+      
+      <% if product.image.attached? %>
+        <%= image_tag product.image, width: 150 %>
+      <% end %>
+
+      <h3><%= link_to product.name, product_path(product) %></h3>
+      <p><%= product.description %></p>
+      <p>$<%= product.price %></p>
+
+    </div>
+  <% end %>
+
+  <%= paginate @products %>
+
+<% else %>
+  <p>No products in this category.</p>
+<% end %>
