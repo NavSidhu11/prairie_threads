@@ -1,0 +1,41 @@
+<h1>Checkout</h1>
+
+<h3>Order Summary</h3>
+
+<% @products.each do |product| %>
+  <p>
+    <strong><%= product.name %></strong>  
+    Qty: <%= session[:cart][product.id.to_s] %>  
+    Price: <%= number_to_currency(product.price) %>
+  </p>
+<% end %>
+
+<hr>
+
+<p><strong>Subtotal:</strong> <%= number_to_currency(@subtotal) %></p>
+<p>GST: <%= @gst %>%</p>
+<p>PST: <%= @pst %>%</p>
+<p>HST: <%= @hst %>%</p>
+
+<p><strong>Tax Total:</strong> <%= number_to_currency(@tax_total) %></p>
+
+<h3>Total: <%= number_to_currency(@grand_total) %></h3>
+
+<hr>
+
+<%= form_with url: orders_path do %>
+
+  <label>Select Address</label><br>
+  <%= select_tag :address_id,
+        options_from_collection_for_select(@addresses, :id, :street),
+        prompt: "Choose address" %>
+
+    <br><br>
+
+    <%= link_to "Add New Address", new_address_path %>
+
+  <br><br>
+
+  <%= submit_tag "Place Order" %>
+
+<% end %>

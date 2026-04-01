@@ -1,0 +1,32 @@
+<h1>Your Cart</h1>
+
+<% @products.each do |product| %>
+  <div style="border:1px solid #ccc; margin:10px; padding:10px;">
+    
+    <h3><%= product.name %></h3>
+
+    <% if product.image.attached? %>
+      <%= image_tag url_for(product.image), width: 120 %>
+    <% end %>
+
+    <p>Price: $<%= product.price %></p>
+
+    <p>Quantity: <%= session[:cart][product.id.to_s] %></p>
+
+    <p>
+      Line Total: 
+      $<%= product.price * session[:cart][product.id.to_s] %>
+    </p>
+
+   <!-- UPDATE -->
+<%= form_with url: cart_path, method: :patch do %>
+  <%= hidden_field_tag :product_id, product.id %>
+  <%= number_field_tag :quantity, session[:cart][product.id.to_s] %>
+  <%= submit_tag "Update" %>
+<% end %>
+
+<!-- REMOVE -->
+<%= button_to "Remove", cart_path(product_id: product.id), method: :delete %>
+<%= link_to "Checkout", new_order_path, class: "btn" %>
+  </div>
+<% end %>

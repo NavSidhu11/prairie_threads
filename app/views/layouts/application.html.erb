@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Prairie Threads" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+<nav style="background:black; color:white; padding:10px;">
+  <%= link_to "Home", root_path, style:"color:white; margin-right:10px;" %>
+  <%= link_to "Products", products_path, style:"color:white; margin-right:10px;" %>
+  <%= link_to "Cart", cart_path, style:"color:white; margin-right:10px;" %>
+
+  <% if user_signed_in? %>
+    <%= link_to "Add Address", new_address_path, style:"color:white;" %> |
+    <%= link_to "My Orders", orders_path, style:"color:white;" %> |
+    Hello, <%= current_user.first_name %> |
+    <%= button_to "Logout", destroy_user_session_path, method: :delete %>
+  <% else %>
+    <%= link_to "Sign Up", new_user_registration_path, style:"color:white;" %> |
+    <%= link_to "Login", new_user_session_path, style:"color:white;" %>
+  <% end %>
+
+  <!-- ADMIN SECTION (SEPARATE ALWAYS) -->
+  <% if admin_user_signed_in? %>
+    | <%= link_to "Admin Dashboard", admin_root_path, style:"color:white;" %>
+    | <%= button_to "Admin Logout", destroy_admin_user_session_path, method: :delete %>
+  <% else %>
+    | <%= link_to "Admin Login", new_admin_user_session_path, style:"color:white;" %>
+  <% end %>
+</nav>
+    <nav>
+      <h3>Categories</h3>
+
+      <% @categories&.each do |category| %>
+        <%= link_to category.name, category_path(category) %> |
+      <% end %>
+
+      <%= link_to "View Cart", cart_path %>
+    </nav>
+    <% flash.each do |type, message| %>
+  <div style="background: lightgreen; padding:10px; margin:10px 0;">
+    <%= message %>
+  </div>
+<% end %>
+
+    <%= yield %>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+<h1>Welcome to Prairie Threads</h1>
+
+<h2>Latest Products</h2>
+
+<% @products.each do |product| %>
+  <div style="margin-bottom: 15px;">
+    <h3><%= link_to product.name, product_path(product) %></h3>
+    <p><%= product.description %></p>
+    <p><strong>$<%= product.price %></strong></p>
+  </div>
+<% end %>

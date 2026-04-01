@@ -1,0 +1,10 @@
+<h1>My Orders</h1>
+
+<% @orders.each do |order| %>
+  <div style="border:1px solid #ccc; padding:15px; margin-bottom:15px;">
+    <p><strong>Order #<%= order.id %></strong></p>
+    <p>Status: <%= order.status %></p>
+    <p>Total: $<%= order.grand_total %></p>
+    <p><%= link_to "View Order", order_path(order) %></p>
+  </div>
+<% end %>

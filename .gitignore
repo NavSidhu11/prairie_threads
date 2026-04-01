@@ -1,0 +1,54 @@
+# Ruby / Rails
+
+/.bundle
+/vendor/bundle
+
+# Environment variables (VERY IMPORTANT)
+/.env*
+!.env.example
+
+# Logs & temp files
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+
+# PID files
+/tmp/pids/*
+!/tmp/pids/
+!/tmp/pids/.keep
+
+# Storage (ActiveStorage uploads)
+/storage/*
+!/storage/.keep
+/tmp/storage/*
+!/tmp/storage/
+!/tmp/storage/.keep
+
+# Assets
+/public/assets
+/public/packs
+/node_modules
+
+# Database (if using SQLite)
+*.sqlite3
+db/*.sqlite3
+db/*.sqlite3-journal
+
+# Credentials / secrets
+/config/master.key
+/config/credentials/*.key
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Yarn / npm logs
+yarn-error.log
+npm-debug.log*

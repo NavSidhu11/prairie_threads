@@ -1,0 +1,46 @@
+<h1>Checkout</h1>
+
+<% if @address.present? %>
+  <h3>Shipping Address</h3>
+  <p><%= @address.street %></p>
+  <p><%= @address.city %>, <%= @address.province.name %></p>
+  <p><%= @address.postal_code %></p>
+<% else %>
+  <p>You do not have an address saved yet.</p>
+  <%= link_to "Add Address", new_address_path %>
+<% end %>
+
+<h3>Order Items</h3>
+
+<% subtotal = 0 %>
+
+<% @products.each do |product| %>
+  <% quantity = @cart_items[product.id.to_s] %>
+  <% line_total = product.current_price * quantity %>
+  <% subtotal += line_total %>
+
+  <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
+    <p><strong><%= product.name %></strong></p>
+    <p>Quantity: <%= quantity %></p>
+    <p>Unit Price: $<%= product.current_price %></p>
+    <p>Line Total: $<%= line_total %></p>
+  </div>
+<% end %>
+
+<p><strong>Subtotal:</strong> $<%= subtotal %></p>
+
+<% if @address.present? %>
+  <% province = @address.province %>
+  <% gst = subtotal * (province.gst_rate / 100) %>
+  <% pst = subtotal * (province.pst_rate / 100) %>
+  <% hst = subtotal * (province.hst_rate / 100) %>
+  <% tax_total = gst + pst + hst %>
+  <% grand_total = subtotal + tax_total %>
+
+  <p>GST: $<%= gst.round(2) %></p>
+  <p>PST: $<%= pst.round(2) %></p>
+  <p>HST: $<%= hst.round(2) %></p>
+  <p><strong>Grand Total: $<%= grand_total.round(2) %></strong></p>
+
+  <%= button_to "Place Order", checkout_path, method: :post %>
+<% end %>
