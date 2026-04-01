@@ -52,3 +52,5 @@ Thumbs.db
 # Yarn / npm logs
 yarn-error.log
 npm-debug.log*
+
+.github/
