@@ -25,7 +25,17 @@
     <% if product.image.attached? %>
       <%= image_tag url_for(product.image), width: 150 %>
     <% end %>
+    <% if product.on_sale %>
+  <span style="background:red; color:white; padding:3px;">SALE</span>
+<% end %>
 
+<% if product.created_at >= 3.days.ago %>
+  <span style="background:green; color:white; padding:3px;">NEW</span>
+<% end %>
+
+<% if product.updated_at >= 3.days.ago && product.created_at < 3.days.ago %>
+  <span style="background:orange; color:white; padding:3px;">UPDATED</span>
+<% end %>
     <h3><%= link_to product.name, product_path(product) %></h3>
     <p><%= product.description %></p>
     <p>$<%= product.price %></p>
