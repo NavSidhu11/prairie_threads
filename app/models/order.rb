@@ -6,6 +6,10 @@ class Order < ApplicationRecord
 
   STATUSES = %w[new paid shipped].freeze
 
+  after_initialize do
+  self.status ||= "new"
+end
+
   validates :status, presence: true, inclusion: { in: STATUSES }
   validates :subtotal, :tax_total, :grand_total, numericality: true
   validates :gst_rate, :pst_rate, :hst_rate, numericality: true
