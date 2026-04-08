@@ -14,6 +14,26 @@ ActiveAdmin.register Order do
     actions
   end
 
+  show do
+  attributes_table do
+    row :id
+    row :user
+    row :status
+    row :subtotal
+    row :tax_total
+    row :grand_total
+    row :created_at
+  end
+
+  panel "Order Items" do
+    table_for order.order_items do
+      column :product
+      column :quantity
+      column :unit_price
+    end
+  end
+end
+
   filter :status
   filter :created_at
 
