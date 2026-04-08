@@ -11,7 +11,7 @@ class OrdersController < ApplicationController
 
   def new
     @cart = session[:cart] || {}
-    @products = Product.find(@cart.keys)
+    @products = Product.where(id: @cart.keys)
     @addresses = current_user.addresses
 
     @subtotal = @products.sum do |p|
@@ -20,21 +20,17 @@ class OrdersController < ApplicationController
 
     province = current_user.province || Province.first
 
-    gst = province.gst_rate
-    pst = province.pst_rate
-    hst = province.hst_rate
+    @gst = province.gst_rate
+    @pst = province.pst_rate
+    @hst = province.hst_rate
 
-    @tax_total = @subtotal * (gst + pst + hst) / 100.0
+    @tax_total = @subtotal * (@gst + @pst + @hst) / 100.0
     @grand_total = @subtotal + @tax_total
-
-    @gst = gst
-    @pst = pst
-    @hst = hst
   end
 
   def create
     cart = session[:cart] || {}
-    products = Product.find(cart.keys)
+    products = Product.where(id: cart.keys)
 
     subtotal = products.sum do |p|
       p.price * cart[p.id.to_s]
@@ -50,6 +46,17 @@ class OrdersController < ApplicationController
     tax_total = subtotal * (gst + pst + hst) / 100.0
     grand_total = subtotal + tax_total
 
+    # 🔥 STRIPE PAYMENT
+    token = params[:stripeToken]
+
+    charge = Stripe::Charge.create(
+      amount: (grand_total * 100).to_i,
+      currency: "cad",
+      description: "Prairie Threads Order",
+      source: token
+    )
+
+    # 🔥 CREATE ORDER
     order = current_user.orders.create!(
       subtotal: subtotal,
       tax_total: tax_total,
@@ -57,10 +64,12 @@ class OrdersController < ApplicationController
       gst_rate: gst,
       pst_rate: pst,
       hst_rate: hst,
-      status: "new",
-      address: address
+      status: "paid", # ✅ now paid after Stripe
+      address: address,
+      stripe_payment_id: charge.id # ✅ save Stripe ID
     )
 
+    # 🔥 CREATE ORDER ITEMS
     products.each do |product|
       OrderItem.create!(
         order: order,
@@ -70,8 +79,9 @@ class OrdersController < ApplicationController
       )
     end
 
+    # 🔥 CLEAR CART
     session[:cart] = {}
 
-    redirect_to order_path(order), notice: "Order placed successfully!"
+    redirect_to order_path(order), notice: "Payment successful! Order placed."
   end
 end

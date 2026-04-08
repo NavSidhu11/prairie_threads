@@ -36,6 +36,18 @@
 
   <br><br>
 
+  <form action="/orders" method="post">
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+
+  <script src="https://checkout.stripe.com/checkout.js"
+          class="stripe-button"
+          data-key="pk_test_51TJwmEF0O1FkTv9j5MUzL1w5FyGPftdwqyeQU59PlWX5nBVH6vKKYIhHziAxOISNWS0M9zKQgUwatDL1P3CGJF3x00yndfQ92w"
+          data-description="Order Payment"
+          data-amount="<%= (@subtotal * 100).to_i %>"
+          data-locale="auto">
+  </script>
+</form>
+
   <%= submit_tag "Place Order" %>
 
 <% end %>
