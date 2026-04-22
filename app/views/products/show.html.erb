@@ -23,9 +23,10 @@
 <h1><%= @product.name %></h1>
 
 <% if @product.image.attached? %>
-  <%= image_tag @product.image.variant(resize_to_limit: [500,500]) if @product.image.attached? %>
+  <%= image_tag url_for(@product.image), width: 300 %>
+<% else %>
+  <p>No Image Available</p>
 <% end %>
-
 <p><%= @product.description %></p>
 <p>Price: $<%= @product.current_price %></p>
 

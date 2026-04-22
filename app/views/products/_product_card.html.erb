@@ -1,8 +1,10 @@
 <div class="product-card">
 
   <% if product.image.attached? %>
-    <%= image_tag product.image.variant(resize_to_fill: [150,150]) %>
-  <% end %>
+  <%= image_tag url_for(product.image), width: 150 %>
+<% else %>
+  <p>No Image</p>
+<% end %>
 
   <% if product.on_sale %>
     <span class="badge sale">SALE</span>
