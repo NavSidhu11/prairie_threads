@@ -1,8 +1,7 @@
 <div style="border:1px solid #ccc; padding:10px; margin:10px;">
   
   <% if product.image.attached? %>
-    <%= image_tag product.image.variant(resize_to_limit: [150,150]) %>
-  <% end %>
+    <%= image_tag product.image.variant(resize_to_fill: [150,150]) if product.image.attached? %>
 
   <% if product.on_sale %>
     <span style="background:red; color:white; padding:3px;">SALE</span>
