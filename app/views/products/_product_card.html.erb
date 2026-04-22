@@ -18,7 +18,7 @@
       <% if product.updated_at >= 3.days.ago && product.created_at < 3.days.ago %>
         <span class="badge bg-warning text-dark">UPDATED</span>
       <% end %>
-
+      <p class="text-muted small">Category: <%= product.categories.first&.name %></p>
       <h5 class="card-title mt-2">
         <%= link_to product.name, product_path(product), class: "text-decoration-none" %>
       </h5>
