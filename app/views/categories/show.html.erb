@@ -1,22 +1,9 @@
-<h1><%= @category.name %></h1>
+<div class="container mt-4">
 
-<% if @products.any? %>
-  <% @products.each do |product| %>
-    <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
-      
-      <% if product.image.attached? %>
-        <%= image_tag product.image, width: 150 %>
-      <% end %>
+  <h2 class="mb-3"><%= @category.name %></h2>
 
-      <h3><%= link_to product.name, product_path(product) %></h3>
-      <p><%= product.description %></p>
-      <p>$<%= product.price %></p>
+  <div class="row">
+    <%= render partial: "products/product_card", collection: @products, as: :product %>
+  </div>
 
-    </div>
-  <% end %>
-
-  <%= paginate @products %>
-
-<% else %>
-  <p>No products in this category.</p>
-<% end %>
+</div>

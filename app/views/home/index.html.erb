@@ -1,11 +1,19 @@
-<h1>Welcome to Prairie Threads</h1>
+<div class="container mt-4">
 
-<h2>Latest Products</h2>
-
-<% @products.each do |product| %>
-  <div style="margin-bottom: 15px;">
-    <h3><%= link_to product.name, product_path(product) %></h3>
-    <p><%= product.description %></p>
-    <p><strong>$<%= product.price %></strong></p>
+  <!-- HERO SECTION -->
+  <div class="p-5 mb-4 bg-dark text-white rounded">
+    <h1 class="display-5">Welcome to Prairie Threads</h1>
+    <p class="lead">Discover quality products at the best prices.</p>
+    <%= link_to "Shop Now", products_path, class: "btn btn-primary btn-lg" %>
   </div>
-<% end %>
+
+  <!-- FEATURED PRODUCTS -->
+  <h3 class="mb-3">Featured Products</h3>
+
+  <div class="row">
+    <%= render partial: "products/product_card",
+        collection: @products.limit(6),
+        as: :product %>
+  </div>
+
+</div>
