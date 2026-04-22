@@ -52,15 +52,15 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
-  gem 'devise'
-gem 'activeadmin'
-gem 'kaminari'
-gem 'ransack'
-gem 'bootstrap', '~> 5.3'
-gem 'sassc-rails'
-gem 'faker'
-gem 'rubocop', require: false
-gem 'stripe'
+  gem "devise"
+gem "activeadmin"
+gem "kaminari"
+gem "ransack"
+gem "bootstrap", "~> 5.3"
+gem "sassc-rails"
+gem "faker"
+gem "rubocop", require: false
+gem "stripe"
 end
 
 group :development do
@@ -73,3 +73,5 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "rubocop-rails", "~> 2.34"

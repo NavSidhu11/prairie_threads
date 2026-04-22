@@ -14,10 +14,10 @@ end
   validates :subtotal, :tax_total, :grand_total, numericality: true
   validates :gst_rate, :pst_rate, :hst_rate, numericality: true
 def self.ransackable_attributes(auth_object = nil)
-  ["id", "status", "subtotal", "tax_total", "grand_total", "created_at", "updated_at"]
+  [ "id", "status", "subtotal", "tax_total", "grand_total", "created_at", "updated_at" ]
 end
 
 def self.ransackable_associations(auth_object = nil)
-  ["user", "order_items"]
+  [ "user", "order_items" ]
 end
 end

@@ -19,6 +19,6 @@ class Address < ApplicationRecord
 end
 
 def self.ransackable_associations(auth_object = nil)
-  ["user", "province"]
+  [ "user", "province" ]
 end
 end

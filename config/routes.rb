@@ -5,16 +5,16 @@ Rails.application.routes.draw do
 
   root "home#index"
 
-  resources :products, only: [:index, :show]
-  resources :categories, only: [:show]
-  resources :pages, only: [:show], param: :slug
+  resources :products, only: [ :index, :show ]
+  resources :categories, only: [ :show ]
+  resources :pages, only: [ :show ], param: :slug
 
- resource :cart, controller: "cart", only: [:show] do
+ resource :cart, controller: "cart", only: [ :show ] do
   post :add
   patch :update
   delete :remove
 end
 
-  resources :orders, only: [:index, :show, :new, :create]
-  resources :addresses, only: [:new, :create, :edit, :update]
+  resources :orders, only: [ :index, :show, :new, :create ]
+  resources :addresses, only: [ :new, :create, :edit, :update ]
 end

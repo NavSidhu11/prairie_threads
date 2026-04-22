@@ -69,7 +69,7 @@ puts "Creating 200 products with images..."
     description: Faker::Lorem.paragraph(sentence_count: 3),
     price: rand(20.0..150.0).round(2),
     stock_quantity: rand(5..50),
-    on_sale: [true, false].sample,
+    on_sale: [ true, false ].sample,
     sale_price: rand(10.0..100.0).round(2)
   )
 
@@ -118,7 +118,7 @@ data["message"].each do |img_url|
     description: "Imported product using external API image",
     price: rand(20.0..100.0),
     stock_quantity: rand(5..30),
-    on_sale: [true, false].sample,
+    on_sale: [ true, false ].sample,
     sale_price: rand(10.0..80.0)
   )
 

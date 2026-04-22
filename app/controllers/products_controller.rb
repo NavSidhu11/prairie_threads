@@ -7,11 +7,11 @@ class ProductsController < ApplicationController
 
     # Filters
     case params[:filter]
-    when 'on_sale'
+    when "on_sale"
       @products = @products.on_sale_only
-    when 'new'
+    when "new"
       @products = @products.new_only
-    when 'recently_updated'
+    when "recently_updated"
       @products = @products.recently_updated_only
     end
 

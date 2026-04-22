@@ -498,6 +498,7 @@ DEPENDENCIES
   rails (~> 8.1.2)
   ransack
   rubocop
+  rubocop-rails (~> 2.34)
   rubocop-rails-omakase
   sassc-rails
   selenium-webdriver

@@ -1,5 +1,4 @@
 ActiveAdmin.register Province do
-
   permit_params :name, :abbreviation, :gst_rate, :pst_rate, :hst_rate
 
   index do
@@ -23,5 +22,4 @@ ActiveAdmin.register Province do
     end
     f.actions
   end
-
 end
