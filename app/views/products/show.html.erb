@@ -1,33 +1,58 @@
-<p>
-  <%= link_to "Home", root_path %> >
+<div class="container mt-4">
 
-  <% if @product.categories.any? %>
-    <%= link_to @product.categories.first.name, category_path(@product.categories.first) %> >
-  <% end %>
+  <!-- Breadcrumb -->
+  <p>
+    <%= link_to "Home", root_path %> >
 
-  <%= @product.name %>
-</p>
+    <% if @product.categories.any? %>
+      <%= link_to @product.categories.first.name, category_path(@product.categories.first) %> >
+    <% end %>
 
-<% if @product.on_sale %>
-  <span style="background:red; color:white; padding:5px;">SALE</span>
-<% end %>
+    <%= @product.name %>
+  </p>
 
-<% if @product.created_at >= 3.days.ago %>
-  <span style="background:green; color:white; padding:5px;">NEW</span>
-<% end %>
+  <div class="row">
 
-<% if @product.updated_at >= 3.days.ago && @product.created_at < 3.days.ago %>
-  <span style="background:orange; color:white; padding:5px;">UPDATED</span>
-<% end %>
+    <!-- LEFT: IMAGE -->
+    <div class="col-md-6">
+      <% if @product.image.attached? %>
+        <%= image_tag url_for(@product.image), class: "img-fluid rounded shadow" %>
+      <% else %>
+        <p>No Image Available</p>
+      <% end %>
+    </div>
 
-<h1><%= @product.name %></h1>
+    <!-- RIGHT: DETAILS -->
+    <div class="col-md-6">
 
-<% if @product.image.attached? %>
-  <%= image_tag url_for(@product.image), width: 300 %>
-<% else %>
-  <p>No Image Available</p>
-<% end %>
-<p><%= @product.description %></p>
-<p>Price: $<%= @product.current_price %></p>
+      <h2><%= @product.name %></h2>
 
-<%= button_to "Add to Cart", add_cart_path(product_id: @product.id), method: :post %>
+      <!-- BADGES -->
+      <% if @product.on_sale %>
+        <span class="badge bg-danger">SALE</span>
+      <% end %>
+
+      <% if @product.created_at >= 3.days.ago %>
+        <span class="badge bg-success">NEW</span>
+      <% end %>
+
+      <% if @product.updated_at >= 3.days.ago && @product.created_at < 3.days.ago %>
+        <span class="badge bg-warning text-dark">UPDATED</span>
+      <% end %>
+
+      <hr>
+
+      <p><%= @product.description %></p>
+
+      <h3 class="text-success">$<%= @product.current_price %></h3>
+
+      <%= button_to "Add to Cart",
+          add_cart_path(product_id: @product.id),
+          method: :post,
+          class: "btn btn-primary btn-lg mt-3" %>
+
+    </div>
+
+  </div>
+
+</div>
