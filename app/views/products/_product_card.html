@@ -1,22 +1,25 @@
 <div class="product-card">
-  
+
   <% if product.image.attached? %>
-    <%= image_tag product.image.variant(resize_to_fill: [150,150]) if product.image.attached? %>
+    <%= image_tag product.image.variant(resize_to_fill: [150,150]) %>
+  <% end %>
 
   <% if product.on_sale %>
     <span class="badge sale">SALE</span>
   <% end %>
 
   <% if product.created_at >= 3.days.ago %>
-<span class="badge new">NEW</span>
+    <span class="badge new">NEW</span>
   <% end %>
 
   <% if product.updated_at >= 3.days.ago && product.created_at < 3.days.ago %>
-   <span class="badge updated">UPDATED</span>
+    <span class="badge updated">UPDATED</span>
   <% end %>
 
   <h3><%= link_to product.name, product_path(product) %></h3>
+
   <p><%= product.description %></p>
+
   <p>$<%= product.price %></p>
 
 </div>
