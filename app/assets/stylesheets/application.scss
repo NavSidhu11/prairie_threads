@@ -1,0 +1,53 @@
+// VARIABLES
+$primary-color: #111;
+$text-color: white;
+$padding: 10px;
+$border-color: #ccc;
+
+// NAVBAR STYLE
+.navbar {
+  background: $primary-color;
+  color: $text-color;
+  padding: $padding;
+
+  a {
+    color: $text-color;
+    margin-right: $padding;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// INHERITANCE
+%card-style {
+  border: 1px solid $border-color;
+  padding: $padding;
+  margin: $padding * 2;
+}
+
+// PRODUCT CARD USING INHERITANCE
+.product-card {
+  @extend %card-style;
+}
+
+// BADGES
+.badge {
+  color: white;
+  padding: 3px 6px;
+  margin-right: 5px;
+}
+
+.sale {
+  background: red;
+}
+
+.new {
+  background: green;
+}
+
+.updated {
+  background: orange;
+}
