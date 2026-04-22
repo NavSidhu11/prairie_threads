@@ -1,27 +1,33 @@
-<div class="product-card">
+<div class="col-md-4">
+  <div class="card mb-4 shadow-sm h-100">
 
-  <% if product.image.attached? %>
-  <%= image_tag url_for(product.image), width: 150 %>
-<% else %>
-  <p>No Image</p>
-<% end %>
+    <% if product.image.attached? %>
+      <%= image_tag url_for(product.image), class: "card-img-top", style: "height:200px; object-fit:cover;" %>
+    <% end %>
 
-  <% if product.on_sale %>
-    <span class="badge sale">SALE</span>
-  <% end %>
+    <div class="card-body">
 
-  <% if product.created_at >= 3.days.ago %>
-    <span class="badge new">NEW</span>
-  <% end %>
+      <% if product.on_sale %>
+        <span class="badge bg-danger">SALE</span>
+      <% end %>
 
-  <% if product.updated_at >= 3.days.ago && product.created_at < 3.days.ago %>
-    <span class="badge updated">UPDATED</span>
-  <% end %>
+      <% if product.created_at >= 3.days.ago %>
+        <span class="badge bg-success">NEW</span>
+      <% end %>
 
-  <h3><%= link_to product.name, product_path(product) %></h3>
+      <% if product.updated_at >= 3.days.ago && product.created_at < 3.days.ago %>
+        <span class="badge bg-warning text-dark">UPDATED</span>
+      <% end %>
 
-  <p><%= product.description %></p>
+      <h5 class="card-title mt-2">
+        <%= link_to product.name, product_path(product), class: "text-decoration-none" %>
+      </h5>
 
-  <p>$<%= product.price %></p>
+      <p class="card-text"><%= truncate(product.description, length: 80) %></p>
 
+      <p class="fw-bold text-primary">$<%= product.price %></p>
+
+    </div>
+
+  </div>
 </div>

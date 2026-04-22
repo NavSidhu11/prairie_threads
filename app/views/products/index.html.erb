@@ -21,6 +21,8 @@
 
 <hr>
 
-<%= render partial: "products/product_card", collection: @products, as: :product %>
+<div class="row mt-4">
+  <%= render partial: "products/product_card", collection: @products, as: :product %>
+</div>
 
 <%= paginate @products %>
